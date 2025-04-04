@@ -30,7 +30,4 @@ public class UsuariosController {
         return buscarUsuariosService.buscarUsuarioPorId(id);
     }
 
-
-
-
 }

@@ -2,19 +2,24 @@ package tech.ada.ml_users.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "USUARIO")
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String email;
     private int idade;
     private String senha;
+    private LocalDateTime dataCriacao;
 
-    public Usuario() {}
+    public Usuario() {
+        this.dataCriacao = LocalDateTime.now();
+    }
 
     public Usuario(Long id, String nome, String email, int idade, String senha) {
         this.id = id;
@@ -62,5 +67,13 @@ public class Usuario {
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }
