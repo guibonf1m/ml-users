@@ -9,21 +9,19 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false, name = "nome_usuario")
     private String nome;
-
     private String email;
-    private String senha;
     private int idade;
+    private String senha;
 
-    public Usuario(String nome, String email, String senha, int idade) {
+    public Usuario() {}
+
+    public Usuario(Long id, String nome, String email, int idade, String senha) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.idade = idade;
-    }
-
-    public Usuario() {
     }
 
     public Long getId() {
