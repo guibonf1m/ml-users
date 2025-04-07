@@ -11,6 +11,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
     private String email;
     private int idade;
@@ -21,12 +22,13 @@ public class Usuario {
         this.dataCriacao = LocalDateTime.now();
     }
 
-    public Usuario(Long id, String nome, String email, int idade, String senha) {
+    public Usuario(Long id, String nome, String email, int idade, String senha, LocalDateTime dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.idade = idade;
+        this.dataCriacao = dataCriacao;
     }
 
     public Long getId() {
