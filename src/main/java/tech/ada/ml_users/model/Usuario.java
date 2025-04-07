@@ -17,6 +17,7 @@ public class Usuario {
     private int idade;
     private String senha;
     private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
 
     public Usuario() {
         this.dataCriacao = LocalDateTime.now();
@@ -77,5 +78,13 @@ public class Usuario {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }

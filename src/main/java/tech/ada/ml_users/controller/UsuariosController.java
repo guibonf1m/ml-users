@@ -9,6 +9,7 @@ import tech.ada.ml_users.dto.CriarUsuarioRequestDTO;
 import tech.ada.ml_users.dto.UsuarioDTO;
 import tech.ada.ml_users.dto.mapper.CriarUsuarioRequestMapper;
 import tech.ada.ml_users.model.Usuario;
+import tech.ada.ml_users.service.AtualizarUsuarioService;
 import tech.ada.ml_users.service.BuscarUsuariosService;
 import tech.ada.ml_users.service.CriarUsuarioService;
 
@@ -20,11 +21,13 @@ public class UsuariosController {
 
     private final BuscarUsuariosService buscarUsuariosService;
     private final CriarUsuarioService criarUsuarioService;
+    private final AtualizarUsuarioService atualizarUsuarioService;
 
     public UsuariosController(BuscarUsuariosService buscarUsuariosService,
-                              CriarUsuarioService criarUsuarioService) {
+                              CriarUsuarioService criarUsuarioService, AtualizarUsuarioService atualizarUsuarioService) {
         this.buscarUsuariosService = buscarUsuariosService;
         this.criarUsuarioService = criarUsuarioService;
+        this.atualizarUsuarioService = atualizarUsuarioService;
     }
 
     @GetMapping
@@ -44,6 +47,12 @@ public class UsuariosController {
 //        return ResponseEntity
 //                .status(HttpStatus.CREATED)
 //                .body(criarUsuarioService.criarUsuario(CriarUsuarioRequestMapper.toEntity(usuario)));
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public Usuario atualizarUsuario(@PathVariable("id") Long id, @RequestBody @Valid CriarUsuarioRequestDTO usuario) {
+        return atualizarUsuarioService.atualizarUsuario(CriarUsuarioRequestMapper.toEntity(usuario), id);
     }
 
 
