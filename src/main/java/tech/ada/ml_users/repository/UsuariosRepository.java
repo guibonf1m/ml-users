@@ -5,8 +5,4 @@ import org.springframework.stereotype.Repository;
 import tech.ada.ml_users.model.Usuario;
 
 @Repository
-public interface UsuariosRepository extends JpaRepository<Usuario, Long> {
-
-
-
-}
+public interface UsuariosRepository extends JpaRepository<Usuario, Long> { }

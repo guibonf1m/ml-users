@@ -16,11 +16,11 @@ public class Usuario {
     private String email;
     private int idade;
     private String senha;
+    @Column(nullable = false)
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 
     public Usuario() {
-        this.dataCriacao = LocalDateTime.now();
     }
 
     public Usuario(Long id, String nome, String email, int idade, String senha, LocalDateTime dataCriacao) {

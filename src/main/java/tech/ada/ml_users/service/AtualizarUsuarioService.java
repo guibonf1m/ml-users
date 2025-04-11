@@ -1,28 +1,28 @@
 package tech.ada.ml_users.service;
 
 import org.springframework.stereotype.Service;
+import tech.ada.ml_users.exception.UsuarioNaoEncontradoException;
 import tech.ada.ml_users.model.Usuario;
+import tech.ada.ml_users.repository.UsuariosRepository;
 
 import java.time.LocalDateTime;
 
 @Service
 public class AtualizarUsuarioService {
 
+    private final UsuariosRepository repository;
     private final BuscarUsuariosService buscarUsuariosService;
-    private final CriarUsuarioService criarUsuarioService;
 
-    public AtualizarUsuarioService(BuscarUsuariosService buscarUsuariosService,
-                                   CriarUsuarioService criarUsuarioService) {
+    public AtualizarUsuarioService(UsuariosRepository repository, BuscarUsuariosService buscarUsuariosService) {
+        this.repository = repository;
         this.buscarUsuariosService = buscarUsuariosService;
-        this.criarUsuarioService = criarUsuarioService;
     }
 
-    public Usuario atualizarUsuario(Usuario usuario, Long id) {
-        buscarUsuariosService.buscarUsuarioPorId(id);
-        usuario.setId(id);
-        usuario.setDataAtualizacao(LocalDateTime.now());
-        return criarUsuarioService.criarUsuario(usuario);
+    public void atualizarUsuario(Usuario usuario, Long id) {
+       buscarUsuariosService.buscarUsuarioPorId(id);
+       usuario.setId(id);
+       usuario.setDataAtualizacao(LocalDateTime.now());
+       repository.save(usuario);
     }
-
 
 }
