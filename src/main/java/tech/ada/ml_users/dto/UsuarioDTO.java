@@ -5,6 +5,7 @@ public class UsuarioDTO {
     private String nome;
     private int idade;
     private String email;
+    private EnderecoDTO endereco;
 
     public UsuarioDTO() {
     }
@@ -37,5 +38,13 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public EnderecoDTO getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
     }
 }

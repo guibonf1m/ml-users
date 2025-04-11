@@ -16,21 +16,12 @@ public class Usuario {
     private String email;
     private int idade;
     private String senha;
-    @Column(nullable = false)
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 
-    public Usuario() {
-    }
-
-    public Usuario(Long id, String nome, String email, int idade, String senha, LocalDateTime dataCriacao) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.idade = idade;
-        this.dataCriacao = dataCriacao;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
 
     public Long getId() {
         return id;
@@ -86,5 +77,13 @@ public class Usuario {
 
     public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }
