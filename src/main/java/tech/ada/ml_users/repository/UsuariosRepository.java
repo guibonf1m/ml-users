@@ -8,6 +8,7 @@ import tech.ada.ml_users.model.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuariosRepository extends JpaRepository<Usuario, Long> {
@@ -18,8 +19,7 @@ public interface UsuariosRepository extends JpaRepository<Usuario, Long> {
     // Buscar usuários dentro de uma faixa de idade
     List<Usuario> findByIdadeBetween(int idadeInicial, int idadeFinal);
 
-    // Buscar usuários cujo email termina com um determinado domínio
-    List<Usuario> findByEmailEndingWith(String dominio);
+    Optional<Usuario> findByEmailIgnoreCase(String email);
 
     @Query(value = "SELECT u.* FROM USUARIO u JOIN ENDERECO e ON u.endereco_id = e.id WHERE e.cep = :cepEndereco",
             nativeQuery = true)
