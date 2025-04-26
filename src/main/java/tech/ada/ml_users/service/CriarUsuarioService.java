@@ -12,13 +12,11 @@ public class CriarUsuarioService {
 
     private final UsuariosRepository repository;
     private final EnderecoService enderecoService;
-    //private final PasswordEncoder passwordEncoder;
 
     public CriarUsuarioService(UsuariosRepository repository,
                                EnderecoService enderecoService) {
         this.repository = repository;
         this.enderecoService = enderecoService;
-        //this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario criarUsuario(Usuario usuario) {
