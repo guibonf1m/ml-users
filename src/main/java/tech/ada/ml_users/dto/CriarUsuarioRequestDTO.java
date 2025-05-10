@@ -22,11 +22,16 @@ public class CriarUsuarioRequestDTO {
     public CriarUsuarioRequestDTO() {
     }
 
-    public CriarUsuarioRequestDTO(String nome, String email, String senha, int idade) {
+    public CriarUsuarioRequestDTO(String nome,
+                                  String email,
+                                  String senha,
+                                  int idade,
+                                  String cep) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.idade = idade;
+        this.cep = cep;
     }
 
     public String getNome() {

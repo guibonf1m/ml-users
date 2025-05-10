@@ -23,6 +23,23 @@ public class Usuario {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+    public Usuario() {}
+
+    public Usuario(String nome,
+                   String email,
+                   int idade,
+                   String senha,
+
+                   String cep) {
+        Endereco endereco = new Endereco();
+        endereco.setCep(cep);
+        this.nome = nome;
+        this.email = email;
+        this.idade = idade;
+        this.senha = senha;
+        this.endereco = endereco;
+    }
+
     public Long getId() {
         return id;
     }

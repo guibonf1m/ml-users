@@ -1,6 +1,5 @@
 package tech.ada.ml_users.service;
 
-
 import org.springframework.stereotype.Service;
 import tech.ada.ml_users.model.Usuario;
 import tech.ada.ml_users.repository.UsuariosRepository;
