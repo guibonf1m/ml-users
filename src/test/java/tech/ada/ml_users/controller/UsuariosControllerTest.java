@@ -3,6 +3,8 @@ package tech.ada.ml_users.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -25,6 +27,7 @@ import tech.ada.ml_users.service.DeletarUsuarioService;
 import tech.ada.ml_users.utils.TestUtils;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.mockito.Mockito.times;
 import static org.springframework.http.MediaType.*;
@@ -49,6 +52,8 @@ public class UsuariosControllerTest {
     final String PATH = "/usuarios";
 
     CriarUsuarioRequestDTO request;
+
+    final String cepNull = null;
 
     MockMvc mockMvc;
 
@@ -108,10 +113,12 @@ public class UsuariosControllerTest {
                 .andDo(print());
     }
 
-    @Test
-    void deveRetornarBadRequestQuandoCriarUmUsuarioInvalido() throws Exception {
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = { "", "123456", "123456789"})
+    void deveRetornarBadRequestQuandoCriarUmUsuarioComCepInvalido(String cepInvalido) throws Exception {
         //cenário
-        request.setCep(null);
+        request.setCep(cepInvalido);
 
         //execução & validação
         mockMvc.perform(post(PATH)
@@ -119,6 +126,95 @@ public class UsuariosControllerTest {
                         .content(TestUtils.asJsonString(request)))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
                 .andDo(print());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = { "rodolfo.lima.com", "rodolfo@", "", "abcdefgh"})
+    void deveRetornarBadRequestQuandoCriarUmUsuarioComEmailInvalido(String emailInvalido) throws Exception {
+        //cenário
+        request.setCep("71901120");
+        request.setEmail(emailInvalido);
+
+        //execução & validação
+        mockMvc.perform(post(PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(TestUtils.asJsonString(request)))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andDo(print());
+    }
+
+    @Test
+    void deveBuscarUmUsuarioPorIdComSucesso() throws Exception {
+        //cenário
+        Long id = 1L;
+        Usuario usuarioRetornado = new Usuario("Rodolfo", "rodolfo.lima@email", 31, "123456768", "71901120");
+
+        Mockito.when(buscarUsuariosService.buscarUsuarioPorId(id))
+                .thenReturn(usuarioRetornado);
+
+        //execução & validação
+        mockMvc.perform(get(PATH + "/" + id)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(content().json(TestUtils.asJsonString(usuarioRetornado)))
+                .andDo(print());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(ints = { 0, -1})
+    void deveRetornarBadRequestQuandoCriarUmUsuarioComIdadeInvalida(Integer idadeInvalida) throws Exception {
+        //cenário
+        request.setIdade(idadeInvalida);
+
+        //execução & validação
+        mockMvc.perform(post(PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(TestUtils.asJsonString(request)))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andDo(print());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = { "Lu", "" })
+    void deveRetornarBadRequestQuandoCriarUmUsuarioComNomeInvalido(String nomeInvalido) throws Exception {
+        //cenário
+        request.setNome(nomeInvalido);
+
+        //execução & validação
+        mockMvc.perform(post(PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(TestUtils.asJsonString(request)))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andDo(print());
+    }
+
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = { "12345", "" })
+    void deveRetornarBadRequestQuandoCriarUmUsuarioComSenhaInvalida(String senhaInvalida) throws Exception {
+        //cenário
+        request.setSenha(senhaInvalida);
+
+        //execução & validação
+        mockMvc.perform(post(PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(TestUtils.asJsonString(request)))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andDo(print());
+    }
+
+
+
+    static Stream<Arguments> proverCepsInvalidos() {
+        return Stream.of(
+                Arguments.of(""),
+                Arguments.of("1234"),
+                Arguments.of("123456789")
+        );
     }
 
     @Test

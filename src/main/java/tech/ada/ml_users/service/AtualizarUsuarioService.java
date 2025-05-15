@@ -24,5 +24,4 @@ public class AtualizarUsuarioService {
        usuario.setDataAtualizacao(LocalDateTime.now());
        repository.save(usuario);
     }
-
 }

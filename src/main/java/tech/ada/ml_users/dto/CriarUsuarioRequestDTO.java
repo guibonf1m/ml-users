@@ -7,6 +7,7 @@ public class CriarUsuarioRequestDTO {
     @NotBlank(message = "Nome não pode ser nulo")
     @Size(min = 3, message = "Nome deve conter pelo menos 3 caracteres")
     private String nome;
+    @NotBlank(message = "Email não pode ser nulo ou blank")
     @Email(message = "Email está fora do padrão")
     private String email;
     @NotBlank(message = "Senha não pode ser vazia")
@@ -14,7 +15,7 @@ public class CriarUsuarioRequestDTO {
     private String senha;
     @NotNull(message = "Idade não pode ser nula")
     @Positive(message = "Idade não pode ser negativa")
-    private int idade;
+    private Integer idade;
     @NotBlank(message = "CEP não pode ser vazio")
     @Size(min = 8, max = 8)
     private String cep;
@@ -58,11 +59,11 @@ public class CriarUsuarioRequestDTO {
         this.senha = senha;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import tech.ada.ml_users.controller.UsuariosController;
 import tech.ada.ml_users.exception.ErroPadrao;
 import tech.ada.ml_users.exception.UsuarioNaoEncontradoException;
 

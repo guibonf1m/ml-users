@@ -19,6 +19,9 @@ public class CriarUsuarioService {
     }
 
     public Usuario criarUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new RuntimeException("Usuário não pode ser nulo");
+        }
         usuario.setEndereco(enderecoService.obterEnderecoPeloCep(usuario.getEndereco().getCep()));
         usuario.setDataCriacao(LocalDateTime.now());
         return repository.save(usuario);
